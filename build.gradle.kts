@@ -8,7 +8,6 @@ plugins {
     val springMgmtVer = "1.0.9.RELEASE"
 
     java
-    `java-library`
     id("org.springframework.boot") version bootVer
     id("io.spring.dependency-management") version springMgmtVer
     kotlin("jvm") version kotlinVer
@@ -53,12 +52,6 @@ subprojects {
     version = "0.0.1-SNAPSHOT"
     java.sourceCompatibility = JavaVersion.VERSION_14
 
-    configurations {
-        compileOnly {
-            extendsFrom(configurations.annotationProcessor.get())
-        }
-    }
-
     repositories {
         mavenCentral()
     }
@@ -77,8 +70,6 @@ subprojects {
 
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-validation")
-
-//        implementation("javax.validation:validation-api:2.0.1.Final")
         implementation("com.auth0:java-jwt:3.10.3")
         implementation("org.modelmapper:modelmapper:2.3.8")
 
@@ -101,7 +92,6 @@ subprojects {
             exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
         }
         testImplementation("io.projectreactor:reactor-test")
-
         testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVer")
         testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVer")
         testImplementation("io.kotest:kotest-property-jvm:$kotestVer")
@@ -114,7 +104,7 @@ subprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "1.8"
+            jvmTarget = "14"
         }
     }
 
@@ -140,4 +130,3 @@ project(":library") {
     tasks.getByName<Jar>("jar") { enabled = true }
     tasks.getByName<BootJar>("bootJar") { enabled = false }
 }
-tasks.getByName<BootJar>("bootJar") { enabled = false }
