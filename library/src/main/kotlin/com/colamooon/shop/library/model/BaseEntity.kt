@@ -22,5 +22,20 @@ abstract class BaseEntity : Serializable {
     lateinit var updatedAt: Instant
 
     var active: Boolean = true
+
     override fun toString(): String = ToStringBuilder.reflectionToString(this)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        val otherEntity = (other as? BaseEntity) ?: return false
+        return this.id == otherEntity.id
+    }
+
+    override fun hashCode(): Int {
+        val prime = 59
+        val result = 1
+
+        return result * prime + (id?.hashCode() ?: 43)
+    }
 }

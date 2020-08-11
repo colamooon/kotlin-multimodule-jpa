@@ -1,4 +1,4 @@
-package com.colamooon.shop.application.common.config
+package com.colamooon.shop.application.common.exception
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException

@@ -7,3 +7,6 @@ CREATE DATABASE colamooon_test;
 GRANT ALL ON colamooon_test.* TO 'colamooon'@'%';
 
 FLUSH PRIVILEGES;
+
+INSERT INTO role (type) VALUES ('ROLE_GUEST');
+INSERT INTO role (type) VALUES ('ROLE_USER');

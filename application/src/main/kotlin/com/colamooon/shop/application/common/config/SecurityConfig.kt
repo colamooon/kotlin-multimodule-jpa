@@ -33,7 +33,7 @@ import org.springframework.web.reactive.config.WebFluxConfigurer
 class SecurityConfig : WebFluxConfigurer {
 
     companion object {
-        val EXCLUDED_PATHS = arrayOf("/auth/**")
+        val EXCLUDED_PATHS = arrayOf("/api/v1/auth/signup","/api/v1/**")
     }
 
     @Bean
@@ -46,8 +46,8 @@ class SecurityConfig : WebFluxConfigurer {
             .logout().disable()
             .authorizeExchange()
             .pathMatchers(*EXCLUDED_PATHS).permitAll()
-            .pathMatchers("/api/**").access(JWTRoleAuthorizationManager(jwtService, "USER"))
-            .anyExchange().access(jwtAuthorizationManager)
+//            .pathMatchers("/api/**").access(JWTRoleAuthorizationManager(jwtService, "USER"))
+//            .anyExchange().access(jwtAuthorizationManager)
             .and()
             .addFilterAt(jwtAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
             .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
@@ -63,7 +63,7 @@ class SecurityConfig : WebFluxConfigurer {
                                 serverAuthenticationSuccessHandler: ServerAuthenticationSuccessHandler,
                                 jwtServerAuthenticationFailureHandler: ServerAuthenticationFailureHandler): AuthenticationWebFilter {
         val authenticationWebFilter = AuthenticationWebFilter(reactiveAuthenticationManager)
-        authenticationWebFilter.setRequiresAuthenticationMatcher { ServerWebExchangeMatchers.pathMatchers(HttpMethod.POST, "/login").matches(it) }
+        authenticationWebFilter.setRequiresAuthenticationMatcher { ServerWebExchangeMatchers.pathMatchers(HttpMethod.POST, "/api/v1/auth/signin").matches(it) }
         authenticationWebFilter.setServerAuthenticationConverter(jwtConverter)
         authenticationWebFilter.setAuthenticationSuccessHandler(serverAuthenticationSuccessHandler)
         authenticationWebFilter.setAuthenticationFailureHandler(jwtServerAuthenticationFailureHandler)

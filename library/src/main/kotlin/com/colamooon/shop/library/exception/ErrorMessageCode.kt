@@ -7,8 +7,9 @@ enum class ErrorMessageCode(val code: String, val message: String) {
     LOGIC_ERROR("9000", "Internal Server Error"),
     NOT_FOUND("9404", "Not Found"),
 
-    SIGNIN_IS_NOT_ALLOWED("1000", "signin is not allowed"),
-    SNSID_IS_REQUIRED("1001", "snsid is required"),
-    SNSTYPE_IS_MISMATCHED("1002", "snstype is mismatched"),
-    SNSTOKEN_IS_NOT_ACCEPTABLE("1003", "snstoken is not acceptable"),
+    SIGNIN_NOT_ALLOWED("1000", "signin not allowed"),
+    SNSID_REQUIRED("1001", "snsid required"),
+    SNSTYPE_MISMATCHED("1002", "snstype mismatched"),
+    SNSTOKEN_NOT_ACCEPTABLE("1003", "snstoken not acceptable"),
+    SNSID_ALREADY_EXISTS("1004", "snsid already exists"),
 }

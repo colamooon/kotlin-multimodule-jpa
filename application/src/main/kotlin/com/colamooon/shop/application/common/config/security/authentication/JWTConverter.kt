@@ -1,6 +1,6 @@
 package com.colamooon.shop.application.common.config.security.authentication
 
-import com.colamooon.shop.application.common.config.HttpExceptionFactory.badRequest
+import com.colamooon.shop.application.common.exception.HttpExceptionFactory.badRequest
 import com.colamooon.shop.library.member.SigninReq
 import kotlinx.coroutines.reactive.awaitFirstOrNull
 import kotlinx.coroutines.reactor.mono
@@ -25,7 +25,7 @@ class JWTConverter(private val jacksonDecoder: AbstractJackson2Decoder,
             throw badRequest()
         }
 
-        return@mono UsernamePasswordAuthenticationToken(signinReq.username, signinReq.password)
+        return@mono UsernamePasswordAuthenticationToken(signinReq.snsId, signinReq.password)
     }
 
     private suspend fun getUsernameAndPassword(exchange: ServerWebExchange): SigninReq? {

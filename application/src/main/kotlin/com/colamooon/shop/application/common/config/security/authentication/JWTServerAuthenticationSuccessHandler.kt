@@ -1,7 +1,7 @@
 package com.colamooon.shop.application.common.config.security.authentication
 
-import com.colamooon.shop.application.common.config.HttpExceptionFactory.unauthorized
 import com.colamooon.shop.application.common.config.security.JWTService
+import com.colamooon.shop.application.common.exception.HttpExceptionFactory.unauthorized
 import kotlinx.coroutines.reactor.mono
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.User
@@ -12,13 +12,11 @@ import reactor.core.publisher.Mono
 
 @Component
 class JWTServerAuthenticationSuccessHandler(private val jwtService: JWTService) : ServerAuthenticationSuccessHandler {
-
     private val FIFTEEN_MIN = 1000 * 60 * 15
     private val FOUR_HOURS = 1000 * 60 * 60 * 4
 
     override fun onAuthenticationSuccess(webFilterExchange: WebFilterExchange?, authentication: Authentication?): Mono<Void> = mono {
         val principal = authentication?.principal ?: throw unauthorized()
-
         when (principal) {
             is User -> {
                 val roles = principal.authorities.map { it.authority }.toTypedArray()
@@ -28,7 +26,6 @@ class JWTServerAuthenticationSuccessHandler(private val jwtService: JWTService) 
                 webFilterExchange?.exchange?.response?.headers?.set("JWT-Refresh-Token", refreshToken)
             }
         }
-
         return@mono null
     }
 }

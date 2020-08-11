@@ -27,10 +27,10 @@ internal class SampleRepositoryImplTest @Autowired constructor(
     @Test
     internal fun `equals`() {
         val sample1 = sampleRepository.getOne(1)
-        val sample2 = sampleRepository.getOne(1)
+        val sample2 = sampleRepository.findByIdAndActive(1, true)
         log.debug("]------] SampleRepositoryImplTest::equals.sample1 [-----[ ${sample1}")
+        log.debug("]------] SampleRepositoryImplTest::equals.sample1 [-----[ ${sample2}")
         // expect
         assertEquals(sample1, sample2)
     }
-
 }

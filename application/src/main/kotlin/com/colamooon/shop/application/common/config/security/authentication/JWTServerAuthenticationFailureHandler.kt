@@ -1,6 +1,6 @@
 package com.colamooon.shop.application.common.config.security.authentication
 
-import com.colamooon.shop.application.common.config.HttpExceptionFactory
+import com.colamooon.shop.application.common.exception.HttpExceptionFactory
 import kotlinx.coroutines.reactive.awaitFirstOrNull
 import kotlinx.coroutines.reactor.mono
 import org.springframework.http.HttpStatus

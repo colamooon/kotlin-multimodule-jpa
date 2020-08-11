@@ -9,7 +9,8 @@ import javax.persistence.Enumerated
 class Role(
     @Enumerated(EnumType.STRING)
     @Column(unique = true, length = 10)
-    var type: RoleType
+    var type: RoleType,
+    override var id: Long? = null
 ) : BaseEntity()
 
 enum class RoleType {
