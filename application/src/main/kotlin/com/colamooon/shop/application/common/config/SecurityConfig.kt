@@ -33,7 +33,7 @@ import org.springframework.web.reactive.config.WebFluxConfigurer
 class SecurityConfig : WebFluxConfigurer {
 
     companion object {
-        val EXCLUDED_PATHS = arrayOf("/api/v1/auth/signup","/api/v1/**")
+        val EXCLUDED_PATHS = arrayOf("/api/v1/auth/signup")
     }
 
     @Bean
@@ -46,8 +46,8 @@ class SecurityConfig : WebFluxConfigurer {
             .logout().disable()
             .authorizeExchange()
             .pathMatchers(*EXCLUDED_PATHS).permitAll()
-//            .pathMatchers("/api/**").access(JWTRoleAuthorizationManager(jwtService, "USER"))
-//            .anyExchange().access(jwtAuthorizationManager)
+            .pathMatchers("/api/**").access(JWTRoleAuthorizationManager(jwtService, "USER"))
+            .anyExchange().access(jwtAuthorizationManager)
             .and()
             .addFilterAt(jwtAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
             .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())

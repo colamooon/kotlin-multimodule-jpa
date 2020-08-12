@@ -10,6 +10,6 @@ class JWTRoleAuthorizationManager(private val jwtService: JWTService, private va
     }
 
     override suspend fun doAuthorization(jwtToken: DecodedJWT): AuthorizationDecision {
-        return AuthorizationDecision(jwtService.getRoles(jwtToken).any { it.authority == "ROLE_$role" })
+        return AuthorizationDecision(jwtService.getRoles(jwtToken).any { it.authority == "$role" })
     }
 }
